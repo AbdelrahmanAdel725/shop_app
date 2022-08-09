@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, use_key_in_widget_constructors
 import 'package:flutter/services.dart';
+import 'package:flutter_projects/shared/styles/colors.dart';
 
 ThemeData darkTheme = ThemeData(
   textTheme: TextTheme(
@@ -11,7 +12,7 @@ ThemeData darkTheme = ThemeData(
       fontFamily: 'Janna',
     ),
   ),
-  primarySwatch: Colors.deepOrange,
+  primarySwatch: defaultColor,
   scaffoldBackgroundColor: Colors.black,
   appBarTheme: AppBarTheme(
     titleSpacing: 20.0,
@@ -41,14 +42,14 @@ ThemeData darkTheme = ThemeData(
 ThemeData lightTheme = ThemeData(
   textTheme: TextTheme(
     bodyText1: TextStyle(
-      fontSize: 18.0,
+      fontSize: 40.0,
       fontWeight: FontWeight.w600,
       color: Colors.black,
       fontFamily: 'Janna',
 
     ),
   ),
-  primarySwatch: Colors.deepOrange,
+  primarySwatch: defaultColor,
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: AppBarTheme(
     titleSpacing: 20.0,

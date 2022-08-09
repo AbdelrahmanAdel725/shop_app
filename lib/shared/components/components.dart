@@ -1,9 +1,11 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe
+// ignore_for_file: import_of_legacy_library_into_null_safe, use_function_type_syntax_for_parameters
 
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/layout/news_app/cubit/cubit.dart';
 import 'package:flutter_projects/modules/news_app/web_view/web_view_screen.dart';
+import 'package:flutter_projects/modules/shop_app/register/shop_register_screen.dart';
+import 'package:flutter_projects/shared/styles/colors.dart';
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace
 
 Widget buildArticleItem(article, context) => InkWell(
@@ -82,3 +84,10 @@ Widget articleBuilder(list,{isSearch = false}) => ConditionalBuilder(
       ),
       fallback: (context) => isSearch ? Container() : Center(child: CircularProgressIndicator()),
     );
+
+
+Widget textButton({required Function function, required String text,}) => TextButton(
+  onPressed: function(),
+  child: Text(text.toUpperCase()),
+
+);

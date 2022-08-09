@@ -13,13 +13,15 @@ import 'package:flutter_projects/shared/network/local/cache_helper.dart';
 import 'package:flutter_projects/shared/network/remote/dio_helper.dart';
 import 'package:flutter_projects/shared/styles/themes.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferences.getInstance();
   DioHelper.init();
   await CacheHelper.init();
-  bool? isDark = CacheHelper.getBoolean(key: 'isDark');
-  runApp(MyApp(isDark!));
+  bool? isDark = CacheHelper.getBoolean(key: 'isDark') ?? false;
+  runApp(MyApp(isDark));
 }
 
 class MyApp extends StatelessWidget {
