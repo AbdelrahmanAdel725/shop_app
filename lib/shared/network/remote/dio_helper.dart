@@ -31,8 +31,15 @@ class DioHelper
     required String url,
     Map<String, dynamic>? query,
     required Map<String, dynamic>? data,
+    String lang = 'ar',
+    String? token,
 })
   {
+     dio.options.headers =
+     {
+       'lang' : lang,
+       'Authorization' : token,
+     };
     return dio.post(
       url,
       queryParameters: query,

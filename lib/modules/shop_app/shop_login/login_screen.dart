@@ -15,13 +15,12 @@ class ShopLoginScreen extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider(
       create: (BuildContext context) => ShopLoginCubit(),
-      child: BlocConsumer<ShopLoginCubit,ShopLoginStates>(
-        listener: (BuildContext context, Object? state) {  },
+      child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
+        listener: (BuildContext context, Object? state) {},
         builder: (BuildContext context, Object? state) {
-          return  Scaffold(
+          return Scaffold(
             appBar: AppBar(),
             body: Center(
               child: Padding(
@@ -34,29 +33,34 @@ class ShopLoginScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('LOGIN',style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                            fontSize: 70,
-                          )),
-                          Text('Login now to browse our hot offers',
-                            style: Theme.of(context).textTheme.bodyText1?.copyWith(color: Colors.grey,fontSize: 25),),
+                          Text('LOGIN',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  ?.copyWith(
+                                    fontSize: 70,
+                                  )),
+                          Text(
+                            'Login now to browse our hot offers',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1
+                                ?.copyWith(color: Colors.grey, fontSize: 25),
+                          ),
                           SizedBox(
                             height: 25.0,
                           ),
                           TextFormField(
-                            validator: (value)
-                            {
-                              if(value!.isEmpty)
-                              {
-                                 return 'Email must not be empty';
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Email must not be empty';
                               }
                               return null;
                             },
-                            onFieldSubmitted: (String value)
-                            {
+                            onFieldSubmitted: (String value) {
                               print(value);
                             },
-                            onChanged: (String value)
-                            {
+                            onChanged: (String value) {
                               print(value);
                             },
                             keyboardType: TextInputType.emailAddress,
@@ -67,57 +71,74 @@ class ShopLoginScreen extends StatelessWidget {
                               border: OutlineInputBorder(),
                             ),
                           ),
-                          SizedBox(height: 15.0,),
+                          SizedBox(
+                            height: 15.0,
+                          ),
                           TextFormField(
+                            onFieldSubmitted: (value) {
+                              if (formKey.currentState!.validate()) {
+                                ShopLoginCubit.get(context).userLogin(
+                                    email: emailController.text,
+                                    password: passController.text);
+                              }
+                            },
                             keyboardType: TextInputType.text,
-                            validator: (String? value)
-                            {
-                              if(value!.isEmpty)
-                              {
-                                return 'Password is to short';
+                            validator: (String? value) {
+                              if (value!.isEmpty) {
+                                return 'Password is too short';
                               }
                               return null;
                             },
-                            controller:passController,
+                            controller: passController,
+                            obscureText: ShopLoginCubit.get(context).isPassword,
                             decoration: InputDecoration(
-                              suffixIcon: Icon(Icons.remove_red_eye),
+                              suffixIcon: IconButton(onPressed: (){
+                                ShopLoginCubit.get(context).changePasswordVisibility();
+                              }, icon: Icon(Icons.visibility),),
                               prefixIcon: Icon(Icons.lock),
                               labelText: 'Password',
                               border: OutlineInputBorder(),
                             ),
                           ),
-                          SizedBox(height: 30,),
+                          SizedBox(
+                            height: 30,
+                          ),
                           Container(
-
                             width: double.infinity,
-                            decoration: BoxDecoration(color: Colors.blue,borderRadius: BorderRadius.circular(5.0)
-                            ),
+                            decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(5.0)),
                             child: ConditionalBuilder(
                               condition: state is! ShopLoginLoadingState,
                               builder: (context) => TextButton(
-                                  onPressed: ()
-                                  {
-                                    if(formKey.currentState!.validate())
-                                    {
+                                  onPressed: () {
+                                    if (formKey.currentState!.validate()) {
                                       ShopLoginCubit.get(context).userLogin(
                                           email: emailController.text,
-                                          password: passController.text
-                                      );
+                                          password: passController.text);
                                     }
                                   },
-                                  child: Text('Login'.toUpperCase(),style: TextStyle(color: Colors.white),)
-                              ),
-                              fallback: (context) => Center(child: CircularProgressIndicator()),
+                                  child: Text(
+                                    'Login'.toUpperCase(),
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                              fallback: (context) =>
+                                  Center(child: CircularProgressIndicator()),
                             ),
                           ),
-                          SizedBox(height: 15,),
+                          SizedBox(
+                            height: 15,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children:
-                            [
+                            children: [
                               Text('Don\'t have an account ?'),
-                              SizedBox(width: 1.0,),
-                              textButton(function: (){}, text: 'LOGIN'.toUpperCase()),
+                              SizedBox(
+                                width: 1.0,
+                              ),
+                              textButton(
+                                  function: () {},
+                                  text: 'register'.toUpperCase()),
                             ],
                           ),
                         ],
@@ -129,7 +150,6 @@ class ShopLoginScreen extends StatelessWidget {
             ),
           );
         },
-
       ),
     );
   }

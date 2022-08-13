@@ -9,6 +9,7 @@ import 'package:flutter_projects/layout/news_app/cubit/cubit.dart';
 import 'package:flutter_projects/layout/news_app/cubit/states.dart';
 import 'package:flutter_projects/layout/news_app/news_layout.dart';
 import 'package:flutter_projects/modules/shop_app/on_boarding/on_boarding_screen.dart';
+import 'package:flutter_projects/shared/bloc_observer.dart';
 import 'package:flutter_projects/shared/network/local/cache_helper.dart';
 import 'package:flutter_projects/shared/network/remote/dio_helper.dart';
 import 'package:flutter_projects/shared/styles/themes.dart';

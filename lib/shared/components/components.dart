@@ -88,6 +88,6 @@ Widget articleBuilder(list,{isSearch = false}) => ConditionalBuilder(
 
 Widget textButton({required Function function, required String text,}) => TextButton(
   onPressed: function(),
-  child: Text(text.toUpperCase()),
+  child: Text(text.toUpperCase(),style: TextStyle(color: defaultColor),),
 
 );
