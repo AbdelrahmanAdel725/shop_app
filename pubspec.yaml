@@ -30,11 +30,13 @@ dependencies:
 
   dio: ^4.0.6
   shared_preferences: ^2.0.15
+  fluttertoast: ^8.0.9
   webview_flutter: ^3.0.4
   hexcolor: ^2.0.7
   smooth_page_indicator: ^1.0.0+2
   conditional_builder: ^1.0.2
   page_view_indicators: ^2.0.0
+  carousel_slider: ^4.1.1
   bloc: ^8.0.3
   flutter_bloc: ^8.0.1
   flutter:

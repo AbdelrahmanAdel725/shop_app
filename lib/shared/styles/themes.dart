@@ -33,7 +33,7 @@ ThemeData darkTheme = ThemeData(
     elevation: 0.0,
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    selectedItemColor: Colors.deepOrange,
+    selectedItemColor: defaultColor,
     unselectedItemColor: Colors.white,
     backgroundColor: Colors.black,
     type: BottomNavigationBarType.fixed,
@@ -70,7 +70,7 @@ ThemeData lightTheme = ThemeData(
     elevation: 0.0,
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
-    selectedItemColor: Colors.deepOrange,
+    selectedItemColor: defaultColor,
     unselectedItemColor: Colors.black,
     backgroundColor: Colors.white,
     type: BottomNavigationBarType.fixed,

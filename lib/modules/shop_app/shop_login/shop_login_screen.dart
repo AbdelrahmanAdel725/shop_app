@@ -5,9 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/layout/shop_app/login/cubit/cubit.dart';
 import 'package:flutter_projects/layout/shop_app/login/cubit/states.dart';
+import 'package:flutter_projects/layout/shop_app/shop_layout.dart';
 import 'package:flutter_projects/modules/shop_app/register/shop_register_screen.dart';
 import 'package:flutter_projects/shared/components/components.dart';
+import 'package:flutter_projects/shared/network/local/cache_helper.dart';
 import 'package:flutter_projects/shared/styles/colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ShopLoginScreen extends StatelessWidget {
   var emailController = TextEditingController();
@@ -18,7 +21,28 @@ class ShopLoginScreen extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => ShopLoginCubit(),
       child: BlocConsumer<ShopLoginCubit, ShopLoginStates>(
-        listener: (BuildContext context, Object? state) {},
+        listener: (BuildContext context, Object? state)
+        {
+          if(state is ShopLoginSuccessState)
+          {
+             if(state.loginModel.status!)
+             {
+               print(state.loginModel.message);
+               print(state.loginModel.data?.token);
+               CacheHelper.saveData(key: 'token', value: state.loginModel.data?.token).then((value)
+               {
+                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>ShopLayout()));
+               });
+               showToast(msg: state.loginModel.message!, state: ToastStates.SUCCESS);
+               
+             }else
+             {
+               print(state.loginModel.message);
+               showToast(msg: state.loginModel.message!, state: ToastStates.ERROR);
+             }
+          }
+
+        },
         builder: (BuildContext context, Object? state) {
           return Scaffold(
             appBar: AppBar(),
@@ -75,11 +99,13 @@ class ShopLoginScreen extends StatelessWidget {
                             height: 15.0,
                           ),
                           TextFormField(
+                            onChanged: (value){print(value);},
                             onFieldSubmitted: (value) {
                               if (formKey.currentState!.validate()) {
                                 ShopLoginCubit.get(context).userLogin(
                                     email: emailController.text,
                                     password: passController.text);
+                                print(value);
                               }
                             },
                             keyboardType: TextInputType.text,
@@ -137,7 +163,7 @@ class ShopLoginScreen extends StatelessWidget {
                                 width: 1.0,
                               ),
                               textButton(
-                                  function: () {},
+                                  function: () {navigateTo(context, RegisterScreen());},
                                   text: 'register'.toUpperCase()),
                             ],
                           ),

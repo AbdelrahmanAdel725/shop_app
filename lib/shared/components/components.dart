@@ -1,11 +1,14 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe, use_function_type_syntax_for_parameters
+// ignore_for_file: import_of_legacy_library_into_null_safe, use_function_type_syntax_for_parameters, constant_identifier_names, body_might_complete_normally_nullable
 
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_projects/layout/news_app/cubit/cubit.dart';
 import 'package:flutter_projects/modules/news_app/web_view/web_view_screen.dart';
 import 'package:flutter_projects/modules/shop_app/register/shop_register_screen.dart';
+import 'package:flutter_projects/modules/shop_app/shop_login/shop_login_screen.dart';
+import 'package:flutter_projects/shared/network/local/cache_helper.dart';
 import 'package:flutter_projects/shared/styles/colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace
 
 Widget buildArticleItem(article, context) => InkWell(
@@ -86,8 +89,46 @@ Widget articleBuilder(list,{isSearch = false}) => ConditionalBuilder(
     );
 
 
-Widget textButton({required Function function, required String text,}) => TextButton(
-  onPressed: function(),
+Widget textButton({required void Function()? function, required String text,}) => TextButton(
+  onPressed: function,
   child: Text(text.toUpperCase(),style: TextStyle(color: defaultColor),),
 
 );
+
+
+void showToast({
+  required String msg,
+  required ToastStates state,
+}) => Fluttertoast.showToast(
+    msg: msg,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.TOP,
+    timeInSecForIosWeb: 5,
+    backgroundColor: chooseToastColor(state),
+    textColor: Colors.white,
+    fontSize: 16.0
+);
+
+enum ToastStates {SUCCESS,ERROR,WARNING}
+
+Color? chooseToastColor (ToastStates state)
+{
+  Color color;
+  switch(state)
+  {
+    case ToastStates.SUCCESS:
+      color = Colors.green;
+      break;
+    case ToastStates.ERROR:
+      color = Colors.red;
+      break;
+    case ToastStates.WARNING:
+      color = Colors.amber;
+      break;
+
+  }
+  return color;
+}
+
+
+void navigateAndFinish(context,widget)=> Navigator.pushReplacement(context, MaterialPageRoute(builder: widget,));

@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, must_be_immutable
 // ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, use_key_in_widget_constructors
 import 'package:flutter/material.dart';
-import 'package:flutter_projects/modules/shop_app/shop_login/login_screen.dart';
+import 'package:flutter_projects/modules/shop_app/shop_login/shop_login_screen.dart';
+import 'package:flutter_projects/shared/components/components.dart';
+import 'package:flutter_projects/shared/network/local/cache_helper.dart';
 import 'package:flutter_projects/shared/styles/colors.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -45,16 +47,29 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   bool isLast = false;
 
+  void submit() {
+    CacheHelper.saveData(key: 'onBoarding', value: true).then((value) {
+      if (value) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ShopLoginScreen(),
+          ),
+          (route) {
+            return false;
+          },
+        );
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
           TextButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ShopLoginScreen()));
-              },
+              onPressed: submit,
               child: Text(
                 'Skip',
                 style: TextStyle(fontSize: 17),
@@ -102,13 +117,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 FloatingActionButton(
                   onPressed: () {
                     if (isLast) {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ShopLoginScreen(),
-                      ),
-                        (route){return false;},
-                      );
+                      submit();
                     } else {
                       boardController.nextPage(
                         duration: Duration(milliseconds: 250),
