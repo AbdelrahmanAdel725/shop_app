@@ -5,9 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/home_screen.dart';
 import 'package:flutter_projects/layout/app_test/cubit/cubit.dart';
 import 'package:flutter_projects/layout/app_test/cubit/states.dart';
-import 'package:flutter_projects/layout/news_app/cubit/cubit.dart';
-import 'package:flutter_projects/layout/news_app/cubit/states.dart';
-import 'package:flutter_projects/layout/news_app/news_layout.dart';
 import 'package:flutter_projects/layout/shop_app/cubit/cubit.dart';
 import 'package:flutter_projects/layout/shop_app/shop_layout.dart';
 import 'package:flutter_projects/modules/shop_app/on_boarding/on_boarding_screen.dart';
@@ -69,7 +66,7 @@ class MyApp extends StatelessWidget {
           ..changeAppMode(
             fromShared: isDark,
           ),),
-        BlocProvider(create: (BuildContext context) => ShopCubit()..getHomeData())
+        BlocProvider(create: (BuildContext context) => ShopCubit()..getHomeData()..getCategories())
       ],
 
       child: BlocConsumer<AppCubit, AppStates>(

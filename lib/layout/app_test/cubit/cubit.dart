@@ -2,7 +2,6 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/layout/app_test/cubit/states.dart';
-import 'package:flutter_projects/layout/news_app/cubit/states.dart';
 import 'package:flutter_projects/shared/network/local/cache_helper.dart';
 
 class AppCubit extends Cubit<AppStates> {

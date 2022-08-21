@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/layout/shop_app/cubit/cubit.dart';
 import 'package:flutter_projects/layout/shop_app/cubit/states.dart';
-import 'package:flutter_projects/modules/news_app/search/search_screen.dart';
 import 'package:flutter_projects/modules/shop_app/search/search_screen.dart';
 import 'package:flutter_projects/modules/shop_app/shop_login/shop_login_screen.dart';
 import 'package:flutter_projects/shared/components/components.dart';
@@ -21,7 +20,7 @@ class ShopLayout extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-                'Salla'
+                'Shop App'
             ),
             actions: [IconButton(onPressed: (){navigateTo(context, ShopSearchScreen());}, icon: Icon(Icons.search))],
           ),

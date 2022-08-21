@@ -1,3 +1,5 @@
+// ignore_for_file: body_might_complete_normally_nullable
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +20,8 @@ class DioHelper
     );
   }
 
-  static Future<Response> getData ({
+  static Future<Response> getData
+      ({
     required String url,
     Map<String, dynamic>? query,
     String? lang = 'en',
