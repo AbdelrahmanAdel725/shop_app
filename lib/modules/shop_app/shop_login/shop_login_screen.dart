@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_projects/layout/shop_app/login/cubit/cubit.dart';
 import 'package:flutter_projects/layout/shop_app/login/cubit/states.dart';
 import 'package:flutter_projects/layout/shop_app/shop_layout.dart';
+import 'package:flutter_projects/modules/shop_app/products/products_screen.dart';
 import 'package:flutter_projects/modules/shop_app/register/shop_register_screen.dart';
 import 'package:flutter_projects/shared/components/components.dart';
 import 'package:flutter_projects/shared/network/local/cache_helper.dart';
@@ -141,9 +142,8 @@ class ShopLoginScreen extends StatelessWidget {
                                     if (formKey.currentState!.validate()) {
                                       ShopLoginCubit.get(context).userLogin(
                                           email: emailController.text,
-                                          password: passController.text);
-                                    }
-                                  },
+                                          password: passController.text);}
+                                    navigateAndFinish(context, ShopLayout());},
                                   child: Text(
                                     'Login'.toUpperCase(),
                                     style: TextStyle(color: Colors.white),

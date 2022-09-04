@@ -62,11 +62,13 @@ import '../../modules/web_view/web_view_screen.dart';
 //       ),
 //     );
 
-Widget myDivider() => Container(
-      height: 1.0,
-      width: 4.0,
-      color: Colors.grey[400],
-    );
+Widget myDivider() => Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 18),
+  child:   Container(
+        height: 2.0,
+        color: Colors.grey[400],
+      ),
+);
 
 void navigateTo(context, widget) => Navigator.push(
       context,
@@ -90,21 +92,27 @@ void navigateTo(context, widget) => Navigator.push(
 //     );
 
 
-Widget textButton({required void Function()? function, required String text,}) => TextButton(
-  onPressed: function,
-  child: Text(text.toUpperCase(),style: TextStyle(color: defaultColor),),
+Widget textButton({required void Function()? function, required String text,}) => Padding(
+  padding: const EdgeInsets.all(10.0),
+  child:   Container(
+    color: defaultColor,
+    child:   TextButton(
+      onPressed: function,
+      child: Text(text.toUpperCase(),style: TextStyle(color: Colors.white),),
 
+    ),
+  ),
 );
 
 
 void showToast({
-  required String msg,
+  required String? msg,
   required ToastStates state,
 }) => Fluttertoast.showToast(
-    msg: msg,
+    msg: msg!,
     toastLength: Toast.LENGTH_LONG,
-    gravity: ToastGravity.TOP,
-    timeInSecForIosWeb: 5,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 4,
     backgroundColor: chooseToastColor(state),
     textColor: Colors.white,
     fontSize: 16.0

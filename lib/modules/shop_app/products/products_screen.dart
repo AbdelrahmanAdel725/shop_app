@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unnecessary_null_comparison, prefer_const_literals_to_create_immutables, import_of_legacy_library_into_null_safe, unused_import, avoid_web_libraries_in_flutter, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, unnecessary_null_comparison, prefer_const_literals_to_create_immutables, import_of_legacy_library_into_null_safe, unused_import, avoid_web_libraries_in_flutter, sized_box_for_whitespace, avoid_print
 
 
 import 'package:carousel_slider/carousel_slider.dart';
@@ -21,11 +21,29 @@ class ProductsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit, ShopStates>(
-      listener: (context, state) {},
+      listener: (context, state)
+      {
+        if(state is ShopSuccessChangeFavoritesState)
+        {
+          if(state.model.status == false)
+          {
+            showToast(
+                msg: state.model.message,
+                state: ToastStates.ERROR,
+            );
+          }else
+          {
+            showToast(
+                msg: state.model.message,
+                state: ToastStates.SUCCESS,
+            );
+          }
+        }
+      },
       builder: (context, state) {
         return ConditionalBuilder(
           condition: ShopCubit.get(context).homeModel != null && ShopCubit.get(context).categoriesModel != null,
-          builder: (context) => builderWidget(ShopCubit.get(context).homeModel,ShopCubit.get(context).categoriesModel),
+          builder: (context) => builderWidget(ShopCubit.get(context).homeModel,ShopCubit.get(context).categoriesModel,context),
           fallback: (context) => Center(child: CircularProgressIndicator()),
         );
       },
@@ -33,7 +51,7 @@ class ProductsScreen extends StatelessWidget {
   }
 }
 
-Widget builderWidget(HomeModel? model,CategoriesModel? categoriesModel) => SingleChildScrollView(
+Widget builderWidget(HomeModel? model,CategoriesModel? categoriesModel,context) => SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,14 +113,15 @@ Widget builderWidget(HomeModel? model,CategoriesModel? categoriesModel) => Singl
                 crossAxisCount: 2,
                 children: List.generate(
                   model.data!.products!.length,
-                  (index) => buildGridProduct(model.data!.products![index]),
+                  (index) => buildGridProduct(model.data!.products![index],context),
                 )),
           ),
+
         ],
       ),
     );
 
-Widget buildGridProduct(Product model) => Container(
+Widget buildGridProduct(Product model,context) => Container(
       color: Colors.white,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,10 +183,21 @@ Widget buildGridProduct(Product model) => Container(
                       ),
                     Spacer(),
                     IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.favorite_border,
-                        )),
+                        onPressed: ()
+                        {
+                          ShopCubit.get(context).changeFavorites(model.id);
+                          print(model.id);
+                        },
+                        icon: CircleAvatar(
+                          radius: 15,
+                        backgroundColor: ShopCubit.get(context).favorites[model.id]??false ? Colors.red : Colors.grey,
+                          child: Icon(
+                            Icons.favorite_border,
+                            color: Colors.white,
+                            size: 16,
+                          ),
+                        ),
+                    ),
                   ],
                 ),
               ],
@@ -178,7 +208,7 @@ Widget buildGridProduct(Product model) => Container(
     );
 
 Widget buildCategoryItem(DataModel model) => Stack(
-  alignment: AlignmentDirectional.bottomCenter,
+  alignment: Alignment.bottomCenter,
   children: [
     Image(
       height: 100,

@@ -43,6 +43,7 @@ void main() async {
       widget = OnBoardingScreen();
     }
 
+
   BlocOverrides.runZoned(() {
     runApp(MyApp(
       isDark: isDark,
@@ -66,7 +67,7 @@ class MyApp extends StatelessWidget {
           ..changeAppMode(
             fromShared: isDark,
           ),),
-        BlocProvider(create: (BuildContext context) => ShopCubit()..getHomeData()..getCategories())
+        BlocProvider(create: (BuildContext context) => ShopCubit()..getHomeData()..getCategories()..getFavorites())
       ],
 
       child: BlocConsumer<AppCubit, AppStates>(
